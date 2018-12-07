@@ -1,24 +1,43 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { StyledForm } from '../styles/StyledForm';
 
-
- const initalUser = {
+const initalUser = {
   username: '',
   password: ''
 };
 
+// const url = process.env.REACT_APP_API_URL;
 
- class SignUp extends Component {
+class SignUp extends Component {
   state = { user: initalUser, message: '' };
-   handleInputChange = e => {
+
+  handleInputChange = e => {
     const { name, value } = e.target;
     this.setState({ user: { ...this.state.user, [name]: value } });
   };
-   render() {
+
+  handleFormSubmit = e => {
+    e.preventDefault();
+    axios
+      .post(`http://localhost:3300/api/register`, this.state.user)
+      .then(res => {
+        this.setState({ message: 'Sign Up Success.', user: { ...initalUser } });
+        this.props.history.push('/sign-in');
+      })
+      .catch(err => {
+        this.setState({
+          message: err.response.data.message,
+          user: { ...initalUser }
+        });
+      });
+  };
+
+  render() {
     const { username, password } = this.state.user;
     return (
       <div>
-        <StyledForm>
+        <StyledForm onSubmit={this.handleFormSubmit}>
           <div className="form-group">
             <h3>Sign Up</h3>
             <label htmlFor="username">Username:</label>
@@ -47,4 +66,5 @@ import { StyledForm } from '../styles/StyledForm';
     );
   }
 }
- export default SignUp;
+
+export default SignUp;

@@ -20,7 +20,7 @@ function generateToken(user) {
   };
   const secret = jwtSecret;
   const options = {
-    expiresIn: '5m'
+    expiresIn: '1m'
   };
   return jwt.sign(payload, secret, options);
 }
@@ -34,6 +34,17 @@ async function register(req, res) {
     return res
       .status(400)
       .json({ message: 'Please enter a valid username and password.' });
+  }
+
+  try {
+    const usenameTaken = await db('users')
+      .where({ username: registrationData.username })
+      .first();
+    if (usenameTaken) {
+      return res.status(401).json({ message: 'That username is taken.' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'There was an error accessing the db.' });
   }
 
   const hash = bcrypt.hashSync(registrationData.password, 8);

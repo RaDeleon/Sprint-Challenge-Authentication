@@ -3,8 +3,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const jwtSecret = require('../_secrets/keys').jwtKey;
 
-
 const db = require('../database/dbConfig');
+
 const { authenticate } = require('./middlewares');
 
 module.exports = server => {
@@ -28,30 +28,35 @@ function generateToken(user) {
 async function register(req, res) {
   // implement user registration
   const registrationData = req.body;
+
   if (!registrationData.username || !registrationData.password) {
-   return res
-     .status(400)
-     .json({ message: 'Please enter a valid username and password.' });
- }
+    return res
+      .status(400)
+      .json({ message: 'Please enter a valid username and password.' });
+  }
+
   const hash = bcrypt.hashSync(registrationData.password, 8);
- registrationData.password = hash;
+  registrationData.password = hash;
+
   try {
-   const userId = await db('users').insert(registrationData);
-   res.status(201).json(userId);
- } catch (error) {
-   res.status(500).json({ error: 'Something went wrong registering.' });
- }
+    const userId = await db('users').insert(registrationData);
+    res.status(201).json(userId);
+  } catch (error) {
+    res.status(500).json({ error: 'Something went wrong registering.' });
+  }
 }
 
 async function login(req, res) {
   // implement user login
   const loginData = req.body;
-   if (!loginData.username || !loginData.password) {
+
+  if (!loginData.username || !loginData.password) {
     return res
       .status(400)
       .json({ message: 'Username and password are required.' });
   }
-   try {
+
+  try {
     const user = await db('users')
       .where({ username: loginData.username })
       .first();
@@ -78,3 +83,5 @@ function getJokes(req, res) {
       res.status(500).json({ message: 'Error Fetching Jokes', error: err });
     });
 }
+
+// Angelo Deleon FSW14 2018

@@ -17,13 +17,16 @@ const StyledJokes = styled.div`
     padding: 1rem;
   }
   .punchline {
-    background: #23555c;
+    /* green */
+    /* background: #23555c; */
+    background: red;
     padding: 1rem;
     transition: all 0.2s;
     cursor: pointer;
     &:hover {
       background: none;
-      color: #3cd788;
+      /* color: #3cd788; */
+      color: red;
     }
   }
 `;

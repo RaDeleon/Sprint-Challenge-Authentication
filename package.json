@@ -11,7 +11,7 @@
     "url": "git+https://github.com/LambdaSchool/Sprint-Challenge-Authentication.git"
   },
   "keywords": [],
-  "author": "Lambda School",
+  "author": "RaDeleon <rudy209@comcast.net>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/LambdaSchool/Sprint-Challenge-Authentication/issues"
@@ -24,7 +24,9 @@
     "express": "^4.16.4",
     "jsonwebtoken": "^8.3.0",
     "knex": "^0.15.2",
-    "sqlite3": "^4.0.2"
+    "react-router-dom": "^4.3.1",
+    "sqlite3": "^4.0.2",
+    "styled-components": "^4.1.2"
   },
   "devDependencies": {
     "nodemon": "^1.18.4"

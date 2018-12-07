@@ -25,7 +25,8 @@ function generateToken(user) {
   return jwt.sign(payload, secret, options);
 }
 
-async function register(req, res) {
+// async function register(req, res) {
+  function register(req, res) {
   // implement user registration
   const registrationData = req.body;
 
@@ -46,7 +47,8 @@ async function register(req, res) {
   }
 }
 
-async function login(req, res) {
+// async function login(req, res) {
+  function login(req, res) {
   // implement user login
   const loginData = req.body;
 
